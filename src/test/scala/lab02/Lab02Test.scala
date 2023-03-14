@@ -17,4 +17,22 @@ class Lab02Test {
     assertEquals("Positive", intToStringDef(1))
     assertEquals("Positive", intToStringDef(1))
     assertEquals("Negative", intToStringDef(-1))
+
+  @Test
+  def testNegVal() =
+    val empty : String => Boolean = _ == ""
+    val notEmpty = negVal(empty)
+    assertEquals(true, notEmpty("stringa"))
+    assertEquals(false, notEmpty(""))
+    assertEquals(true, notEmpty("foo") && !notEmpty(""))
+
+
+  @Test
+  def testNegDef() =
+    val empty: String => Boolean = _ == ""
+    val notEmpty = negDef(empty)
+    assertEquals(true, notEmpty("stringa"))
+    assertEquals(false, notEmpty(""))
+    assertEquals(true, notEmpty("foo") && !notEmpty(""))
+
 }

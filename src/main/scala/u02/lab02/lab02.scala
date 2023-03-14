@@ -1,5 +1,7 @@
 package u02.lab02
 
+import scala.compiletime.ops.boolean.!
+
 object lab02 extends App:
 
   val intToString: Int => String = _ match
@@ -10,9 +12,7 @@ object lab02 extends App:
     case n if n >= 0 => "Positive"
     case n if n < 0 => "Negative"
 
+  val negVal: (String => Boolean) => String => Boolean = pred => x => !pred(x)
+  def negDef(pred: String => Boolean): String => Boolean = !pred(_);
 
-/*val res = v match
-    case n if n > 0 => "pos"
-    case 0 => "zero"
-    case _ => "neg" // default case, makes it a total function
-  println(res)*/ // "pos"
+

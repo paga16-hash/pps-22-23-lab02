@@ -13,6 +13,6 @@ object lab02 extends App:
     case n if n < 0 => "Negative"
 
   val negVal: (String => Boolean) => String => Boolean = pred => x => !pred(x)
-  def negDef(pred: String => Boolean): String => Boolean = !pred(_);
+  def negDef(pred: String => Boolean): String => Boolean = !pred(_)
 
-
+  def genNegDef[A](pred: A => Boolean): A => Boolean = !pred(_)

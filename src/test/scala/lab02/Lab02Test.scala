@@ -20,17 +20,24 @@ class Lab02Test {
 
   @Test
   def testNegVal() =
-    val empty : String => Boolean = _ == ""
+    val empty: String => Boolean = _ == ""
     val notEmpty = negVal(empty)
     assertEquals(true, notEmpty("stringa"))
     assertEquals(false, notEmpty(""))
     assertEquals(true, notEmpty("foo") && !notEmpty(""))
 
-
   @Test
   def testNegDef() =
     val empty: String => Boolean = _ == ""
     val notEmpty = negDef(empty)
+    assertEquals(true, notEmpty("stringa"))
+    assertEquals(false, notEmpty(""))
+    assertEquals(true, notEmpty("foo") && !notEmpty(""))
+
+  @Test
+  def testGenNegDef() =
+    val empty: String => Boolean = _ == ""
+    val notEmpty = genNegDef(empty)
     assertEquals(true, notEmpty("stringa"))
     assertEquals(false, notEmpty(""))
     assertEquals(true, notEmpty("foo") && !notEmpty(""))

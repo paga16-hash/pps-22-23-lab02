@@ -1,6 +1,6 @@
 package lab02
 import junit.framework.TestCase.assertTrue
-import org.junit.Assert.{assertEquals, assertFalse}
+import org.junit.Assert.{assertEquals, assertFalse, assertNotEquals}
 import org.junit.Test
 import u02.lab02.lab02.*
 
@@ -78,4 +78,27 @@ class Lab02Test {
     assertFalse(checkCarrDef(3)(2)(2))
     assertFalse(checkCarrDef(2)(2)(1))
     assertFalse(checkCarrDef(3)(2)(1))
+
+  @Test
+  def testCompose() =
+    assertEquals(9, compose(_ - 1, _ * 2)(5))
+
+  //@Test
+  //def testGenericCompose() =
+    //assertEquals(9, genericCompose(_ - 1, _ * 2)(5))
+
+  @Test
+  def testGCD() =
+    assertEquals(4, gcd(12, 8))
+    assertEquals(7, gcd(14, 7))
+    assertNotEquals(6, gcd(14, 7))
+    assertNotEquals(6, gcd(10, 5))
+
+
+  @Test
+  def testShapePerimeter() =
+    assertEquals(40, perimeter(Rectangle(10, 20)))
+    assertTrue(5 * scala.math.Pi - 0.1 < perimeter(Circle(5)) < 5 * scala.math.Pi + 0.1)
+    assertEquals(40, perimeter(Square(10)))
+
 }

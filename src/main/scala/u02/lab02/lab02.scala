@@ -22,4 +22,21 @@ object lab02 extends App:
   val checkCarrVal: Int => Int => Int => Boolean = x => y => z => x <= y && y == z
 
   def checkNotCarrDef: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
-  def checkCarrDef(x: Int) (y: Int) (z: Int): Boolean = x <= y && y == z
+  def checkCarrDef(x: Int)(y: Int)(z: Int): Boolean = x <= y && y == z
+
+  def compose(f: Int => Int, g: Int => Int): Int => Int = x => f(g(x))
+  //il vincolo molto semplicemente sarà che l'output di g dovrà essere uguale a l'input di f.
+
+  //def genericCompose[A, B, C](f: B => C, g: A => B): C => A = f(g(_))
+
+  @annotation.tailrec
+  def gcd(a: Int, b: Int): Int = (a, b) match
+    case (_, 0) => a
+    case _ if a > b => gcd(b, a % b)
+
+  println(gcd(12, 8))
+
+
+
+
+

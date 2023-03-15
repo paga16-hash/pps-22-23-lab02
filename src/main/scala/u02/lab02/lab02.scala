@@ -17,4 +17,9 @@ object lab02 extends App:
 
   def genNegDef[A](pred: A => Boolean): A => Boolean = !pred(_)
 
-  val check: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
+  val checkNotCarrVal: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
+
+  val checkCarrVal: Int => Int => Int => Boolean = x => y => z => x <= y && y == z
+
+  def checkNotCarrDef: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
+  def checkCarrDef(x: Int) (y: Int) (z: Int): Boolean = x <= y && y == z

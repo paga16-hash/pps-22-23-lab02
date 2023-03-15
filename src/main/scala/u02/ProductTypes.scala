@@ -19,6 +19,9 @@ object ProductTypes extends App:
   def getX(p: Point2D): Double = p match
     case (Point2D(x, _)) => x
 
+  def getY(p: Point2D): Double = p match
+    case (Point2D(_, y)) => y
+
   // a fluent setter that creates a new record..
   def chgX(p: Point2D, x: Double): Point2D = p match
     case (Point2D(_, y)) => Point2D(x, y)

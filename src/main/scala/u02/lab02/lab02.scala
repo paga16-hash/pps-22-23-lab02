@@ -16,3 +16,5 @@ object lab02 extends App:
   def negDef(pred: String => Boolean): String => Boolean = !pred(_)
 
   def genNegDef[A](pred: A => Boolean): A => Boolean = !pred(_)
+
+  val check: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z

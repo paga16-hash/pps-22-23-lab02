@@ -22,24 +22,31 @@ class Lab02Test {
   def testNegVal() =
     val empty: String => Boolean = _ == ""
     val notEmpty = negVal(empty)
-    assertEquals(true, notEmpty("stringa"))
-    assertEquals(false, notEmpty(""))
-    assertEquals(true, notEmpty("foo") && !notEmpty(""))
+    assertTrue(notEmpty("stringa"))
+    assertFalse(notEmpty(""))
+    assertTrue(notEmpty("foo") && !notEmpty(""))
 
   @Test
   def testNegDef() =
     val empty: String => Boolean = _ == ""
     val notEmpty = negDef(empty)
-    assertEquals(true, notEmpty("stringa"))
-    assertEquals(false, notEmpty(""))
-    assertEquals(true, notEmpty("foo") && !notEmpty(""))
+    assertTrue(notEmpty("stringa"))
+    assertFalse(notEmpty(""))
+    assertTrue(notEmpty("foo") && !notEmpty(""))
 
   @Test
   def testGenNegDef() =
-    val empty: String => Boolean = _ == ""
-    val notEmpty = genNegDef(empty)
-    assertEquals(true, notEmpty("stringa"))
-    assertEquals(false, notEmpty(""))
-    assertEquals(true, notEmpty("foo") && !notEmpty(""))
+    val even: Int => Boolean = _ % 2 == 0
+    val odd = genNegDef(even)
+    assertTrue(odd(1))
+    assertFalse(odd(2))
 
+  @Test
+  def testCarriedFunType() =
+    //x ≤ y = z
+    assertTrue(check(1, 2, 2))
+    assertTrue(check(2, 2, 2))
+    assertFalse(check(3, 2, 2))
+    assertFalse(check(2, 2, 1))
+    assertFalse(check(3, 2, 1))
 }

@@ -4,6 +4,11 @@ import scala.compiletime.ops.boolean.!
 
 object lab02 extends App:
 
+  //Task 1
+  def greet: String = "Hello, Scala!"
+  println(greet)
+
+  //Task 2a
   val intToString: Int => String = _ match
     case n if n >= 0 => "Positive"
     case n if n < 0 => "Negative"
@@ -17,6 +22,7 @@ object lab02 extends App:
 
   def genNegDef[A](pred: A => Boolean): A => Boolean = !pred(_)
 
+  //Task 2b
   val checkNotCarrVal: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
 
   val checkCarrVal: Int => Int => Int => Boolean = x => y => z => x <= y && y == z

@@ -29,6 +29,7 @@ object Lab02 extends App:
   val checkCur: Int => (Int => (Int => Boolean)) = x => y => z => x <= y && y == z
 
   def checkNotCurD: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
+
   def checkCurD(x: Int)(y: Int)(z: Int): Boolean = x <= y && y == z
 
   def compose(f: Int => Int, g: Int => Int): Int => Int = x => f(g(x))

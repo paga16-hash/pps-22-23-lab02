@@ -1,6 +1,6 @@
-package u02.lab02
+package lab02
 
-import u02.lab02.Lab02.Option
+import Lab02.Option
 
 object Lab02 extends App:
 

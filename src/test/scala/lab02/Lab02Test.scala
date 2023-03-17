@@ -2,9 +2,9 @@ package lab02
 import junit.framework.TestCase.assertTrue
 import org.junit.Assert.{assertEquals, assertFalse, assertNotEquals}
 import org.junit.Test
-import u02.lab02.Lab02.*
-import u02.lab02.Lab02.Shape.*
-import u02.lab02.Lab02.Option.*
+import Lab02.*
+import Lab02.Shape.*
+import Lab02.Option.*
 
 class Lab02Test {
 

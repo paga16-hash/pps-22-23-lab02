@@ -4,96 +4,105 @@ import org.junit.Assert.{assertEquals, assertFalse, assertNotEquals}
 import org.junit.Test
 import u02.lab02.Lab02.*
 import u02.lab02.Lab02.Shape.*
+import u02.lab02.Lab02.Option.*
 
 class Lab02Test {
 
   //task 2a
   @Test
-  def testPosNegVal() =
-    assertEquals("Positive", intToString(1))
-    assertEquals("Positive", intToString(1))
-    assertEquals("Negative", intToString(-1))
+  def testToStr(): Unit =
+    assertEquals("Positive", toStr(1))
+    assertEquals("Positive", toStr(1))
+    assertEquals("Negative", toStr(-1))
 
   @Test
-  def testPosNegDef() =
-    assertEquals("Positive", intToStringDef(1))
-    assertEquals("Positive", intToStringDef(1))
-    assertEquals("Negative", intToStringDef(-1))
+  def testToStrD(): Unit =
+    assertEquals("Positive", toStrD(1))
+    assertEquals("Positive", toStrD(1))
+    assertEquals("Negative", toStrD(-1))
 
   @Test
-  def testNegVal() =
+  def testNeg(): Unit =
     val empty: String => Boolean = _ == ""
-    val notEmpty = negVal(empty)
+    val notEmpty = neg(empty)
     assertTrue(notEmpty("string"))
     assertFalse(notEmpty(""))
     assertTrue(notEmpty("foo") && !notEmpty(""))
 
   @Test
-  def testNegDef() =
+  def testNegD(): Unit =
     val empty: String => Boolean = _ == ""
-    val notEmpty = negDef(empty)
+    val notEmpty = negD(empty)
     assertTrue(notEmpty("string"))
     assertFalse(notEmpty(""))
     assertTrue(notEmpty("foo") && !notEmpty(""))
 
   @Test
-  def testGenNegDef() =
+  def testGenNegD(): Unit =
     val even: Int => Boolean = _ % 2 == 0
-    val odd = genNegDef(even)
+    val odd = genNegD(even)
     assertTrue(odd(1))
     assertFalse(odd(2))
 
-    //task 2b
+  //task 2b
   @Test
-  def testCheckNotCarrVal() =
+  def testCheckNotCur(): Unit =
     //x ≤ y = z
-    assertTrue(checkNotCurrVal(1, 2, 2))
-    assertTrue(checkNotCurrVal(2, 2, 2))
-    assertFalse(checkNotCurrVal(3, 2, 2))
-    assertFalse(checkNotCurrVal(2, 2, 1))
-    assertFalse(checkNotCurrVal(3, 2, 1))
+    assertTrue(checkNotCur(1, 2, 2))
+    assertTrue(checkNotCur(2, 2, 2))
+    assertFalse(checkNotCur(3, 2, 2))
+    assertFalse(checkNotCur(2, 2, 1))
+    assertFalse(checkNotCur(3, 2, 1))
 
   @Test
-  def testCheckCarrVal() =
+  def testCheckCur(): Unit =
     //x ≤ y = z
-    assertTrue(checkCurrVal(1)(2)(2))
-    assertTrue(checkCurrVal(2)(2)(2))
-    assertFalse(checkCurrVal(3)(2)(2))
-    assertFalse(checkCurrVal(2)(2)(1))
-    assertFalse(checkCurrVal(3)(2)(1))
+    assertTrue(checkCur(1)(2)(2))
+    assertTrue(checkCur(2)(2)(2))
+    assertFalse(checkCur(3)(2)(2))
+    assertFalse(checkCur(2)(2)(1))
+    assertFalse(checkCur(3)(2)(1))
 
-  def testCheckNotCarrDef() =
+  def testCheckNotCurD(): Unit =
     //x ≤ y = z
-    assertTrue(checkNotCurrDef(1, 2, 2))
-    assertTrue(checkNotCurrDef(2, 2, 2))
-    assertFalse(checkNotCurrDef(3, 2, 2))
-    assertFalse(checkNotCurrDef(2, 2, 1))
-    assertFalse(checkNotCurrDef(3, 2, 1))
-
-  @Test
-  def testCheckCarrDef() =
-    //x ≤ y = z
-    assertTrue(checkCurrDef(1)(2)(2))
-    assertTrue(checkCurrDef(2)(2)(2))
-    assertFalse(checkCurrDef(3)(2)(2))
-    assertFalse(checkCurrDef(2)(2)(1))
-    assertFalse(checkCurrDef(3)(2)(1))
+    assertTrue(checkNotCurD(1, 2, 2))
+    assertTrue(checkNotCurD(2, 2, 2))
+    assertFalse(checkNotCurD(3, 2, 2))
+    assertFalse(checkNotCurD(2, 2, 1))
+    assertFalse(checkNotCurD(3, 2, 1))
 
   @Test
-  def testCompose() =
+  def testCheckCurD(): Unit =
+    //x ≤ y = z
+    assertTrue(checkCurD(1)(2)(2))
+    assertTrue(checkCurD(2)(2)(2))
+    assertFalse(checkCurD(3)(2)(2))
+    assertFalse(checkCurD(2)(2)(1))
+    assertFalse(checkCurD(3)(2)(1))
+
+  @Test
+  def testCompose(): Unit =
     assertEquals(9, compose(_ - 1, _ * 2)(5))
+
+  @Test
+  def testGenCompose(): Unit =
+    val res = genCompose[Int, Double, Double](_ * 1, _ * 2.0)(5)
+    println(res)
+    assertTrue(res >= 9.999 && res <= 10.001)
+    assertEquals(9, genCompose[Int, Int, Int](_ - 1, _ * 2)(5))
 
   //task 3
   @Test
-  def testGCD() =
+  def testGCD(): Unit =
     assertEquals(4, gcd(12, 8))
+    assertEquals(4, gcd(8, 12))
     assertEquals(7, gcd(14, 7))
     assertNotEquals(6, gcd(14, 7))
     assertNotEquals(6, gcd(10, 5))
 
   //task 4
   @Test
-  def testShapePerimeter() =
+  def testShapePerimeter(): Unit =
     val rectPer = perimeter(Rectangle(20, 10))
     assertTrue(rectPer >= 59.9 && rectPer <= 60.1)
     val circlePer = perimeter(Circle(5))
@@ -102,12 +111,29 @@ class Lab02Test {
     assertTrue(squarePer >= 39.9 && squarePer <= 40.1)
 
   @Test
-  def testShapeContains() =
+  def testShapeContains(): Unit =
     assertTrue(contains(Square(10), (5, 5)))
     assertTrue(contains(Rectangle(20, 10), (10, 5)))
     assertTrue(contains(Circle(10), (5, 5)))
     assertFalse(contains(Square(10), (11, 0)))
     assertFalse(contains(Rectangle(20, 10), (20, 11)))
     assertFalse(contains(Circle(1), (5, 5)))
+
+  @Test
+  def testFilter(): Unit =
+    assertEquals(Some(5), filter(Some(5))(_ > 2))
+    assertEquals(None(), filter(Some(5))(_ < 2))
+    assertEquals(None(), filter(None[Int]())(_ > 2))
+
+  @Test
+  def testMap(): Unit =
+    assertEquals(Some(true), map(Some(5))(_ > 2))
+    assertEquals(Some(false), map(Some(5))(_ > 8))
+    assertEquals(None(), map(None[Int]())(_ > 2))
+
+  @Test
+  def testFold(): Unit =
+    assertEquals(6, fold(Some(5))(1)(_ + 1))
+    assertEquals(1, fold(None[Int]())(1)(_ + 1))
 
 }

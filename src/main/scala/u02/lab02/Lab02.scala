@@ -1,5 +1,7 @@
 package u02.lab02
 
+import u02.lab02.Lab02.Option
+
 object Lab02 extends App:
 
   //Task 1
@@ -7,39 +9,37 @@ object Lab02 extends App:
   println(greet)
 
   //Task 2a
-  val intToString: Int => String = _ match
+  val toStr: Int => String = _ match
     case n if n >= 0 => "Positive"
-    case n if n < 0 => "Negative"
+    case _ => "Negative"
 
-  def intToStringDef(n: Int): String = n match
+  def toStrD(n: Int): String = n match
     case n if n >= 0 => "Positive"
-    case n if n < 0 => "Negative"
+    case _ => "Negative"
 
-  val negVal: (String => Boolean) => String => Boolean = pred => x => !pred(x)
+  val neg: (String => Boolean) => String => Boolean = p => x => !p(x)
 
-  def negDef(pred: String => Boolean): String => Boolean = !pred(_)
+  def negD(p: String => Boolean): String => Boolean = !p(_)
 
-  def genNegDef[A](pred: A => Boolean): A => Boolean = !pred(_)
+  def genNegD[A](p: A => Boolean): A => Boolean = !p(_)
 
   //Task 2b
-  val checkNotCurrVal: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
+  val checkNotCur: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
 
-  val checkCurrVal: Int => (Int => (Int => Boolean)) = x => y => z => x <= y && y == z
+  val checkCur: Int => (Int => (Int => Boolean)) = x => y => z => x <= y && y == z
 
-  def checkNotCurrDef: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
-  def checkCurrDef(x: Int)(y: Int)(z: Int): Boolean = x <= y && y == z
+  def checkNotCurD: (Int, Int, Int) => Boolean = (x: Int, y: Int, z: Int) => x <= y && y == z
+  def checkCurD(x: Int)(y: Int)(z: Int): Boolean = x <= y && y == z
 
   def compose(f: Int => Int, g: Int => Int): Int => Int = x => f(g(x))
   //il vincolo sarà che l'output di g dovrà essere uguale a l'input di f.
-  def genericCompose[A, B, C](f: B => C, g: A => B): A => C = x => f(g(x))
+  def genCompose[A, B, C](f: B => C, g: A => B): A => C = x => f(g(x))
 
   //Task 3
   @annotation.tailrec
   def gcd(a: Int, b: Int): Int = (a, b) match
     case (_, 0) => a
-    case _ if a > b => gcd(b, a % b)
-
-  println(gcd(12, 8))
+    case _ => gcd(b, a % b)
 
   //Task 4
   enum Shape:
@@ -63,35 +63,33 @@ object Lab02 extends App:
         && scala.math.abs(y1) >= scala.math.abs(y2)
 
   //Task 5
-  object Optionals:
 
-    enum Option[A]:
-      case Some(a: A)
-      case None() // here parens are needed because of genericity
+  enum Option[A]:
+    case Some(a: A)
+    case None() // here parens are needed because of genericity
 
-    object Option:
+  object Option:
 
-      def isEmpty[A](opt: Option[A]): Boolean = opt match
-        case None() => true
-        case _ => false
+    def isEmpty[A](opt: Option[A]): Boolean = opt match
+      case None() => true
+      case _ => false
 
-      def orElse[A, B >: A](opt: Option[A], orElse: B): B = opt match
-        case Some(a) => a
-        case _ => orElse
+    def orElse[A, B >: A](opt: Option[A], orElse: B): B = opt match
+      case Some(a) => a
+      case _ => orElse
 
-      def flatMap[A, B](opt: Option[A])(f: A => Option[B]): Option[B] = opt match
-        case Some(a) => f(a)
-        case _ => None()
+    def flatMap[A, B](opt: Option[A])(f: A => Option[B]): Option[B] = opt match
+      case Some(a) => f(a)
+      case _ => None()
 
-    import Option.*
+    def filter[A](opt: Option[A])(p: A => Boolean): Option[A] = opt match
+      case Some(a) if p(a) => Some(a)
+      case _ => None()
 
-    val s1: Option[Int] = Some(1)
-    val s2: Option[Int] = Some(2)
-    val s3: Option[Int] = None()
+    def map[A, B](opt: Option[A])(m: A => B): Option[B] = opt match
+      case Some(a) => Some(m(a))
+      case _ => None()
 
-    println(s1) // Some(1)
-    println(orElse(s1, 0))
-    println(orElse(s3, 0)) // 1,0
-    println(flatMap(s1)(i => Some(i + 1))) // Some(2)
-    println(flatMap(s1)(i => flatMap(s2)(j => Some(i + j)))) // Some(3)
-    println(flatMap(s1)(i => flatMap(s3)(j => Some(i + j)))) // None
+    def fold[A, B](opt: Option[A])(dv: A)(m: A => B): Any = opt match
+      case Some(a) => m(a)
+      case _ => dv

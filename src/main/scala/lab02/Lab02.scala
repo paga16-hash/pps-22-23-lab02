@@ -38,8 +38,8 @@ object Lab02 extends App:
 
   //Task 3
   @annotation.tailrec
-  def gcd(a: Int, b: Int): Int = (a, b) match
-    case (_, 0) => a
+  def gcd(a: Int, b: Int): Int = b match
+    case 0 => a
     case _ => gcd(b, a % b)
 
   //Task 4
